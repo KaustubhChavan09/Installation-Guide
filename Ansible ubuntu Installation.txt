@@ -1,0 +1,60 @@
+Ansible ubunti Intsallltion
+
+1. Create Ubuntu Ec2 Instance- Anisble_Master
+
+2.Take access--Run this commands in Git Bash
+
+ 1.ls
+ 2.python3 --version
+ 3.sudo apt-add-repository ppa:ansible/ansible
+ 4.sudo apt update
+ 5.sudo apt install ansible
+ 6.ansible --version
+ 7.ssh-keygen -t rsa
+ 8.cd /root/.ssh/  (3 files)
+ 9.ls
+ 10.cat id_rsa.pub
+
+3.Create Node-1 Ubuntu--Take access--cd /root/.ssh/--authorization-Keys file-open in vim authorization_Keys--Copy public key from master-paste in authorization keys
+
+4.Inventory file location --Master
+1.cd /etc/
+2.cd ansible
+3.ls
+4.vim hosts
+5.copy node public ip and paste in hosts-save-close
+6.ansible -m ping <node public ip> (use to check connectivity between master and node)
+
+Playbook example
+
+- hosts: webservers
+  become: true
+  tasks:
+  - name: Create a file
+    file: path=/home/batch-13.txt state=touch
+
+How to create group of ips
+Example [webservers]
+        192.167.0.1
+        13.233.174.15
+
+hosts:Webservers  name of host example-Webservers
+become:true  This activity we want to perform using root or sudo user
+
+tasks :after this write task which want to perform
+
+- name: Create a file (name of task )
+
+file: path=/home/batch-13.txt state=touch
+here file is module and path is provided where we want create while state is touch so its creates empty with batch-13
+
+
+#How to execute playbook
+ ansible-playbook --syntax-check file.yml (Syntax checking)
+ 
+Run file using this command
+ansible-playbook file.yml
+
+Ansible vault
+
+
